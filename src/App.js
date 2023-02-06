@@ -51,6 +51,8 @@ const Login = (props) => {
     navigate('/')
   }
 
+
+
   return (
     <div>
       <h2>Login Form</h2>
@@ -156,6 +158,10 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
+  const login = (user) => {
+    setUser(user)
+  }
+
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
@@ -196,6 +202,8 @@ const App = () => {
           <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path='/about' element={<About />} />
           <Route path='/createnew' element={<CreateNew addNew={addNew} />} />
+          {/* <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} /> */}
+          <Route path="/login" element={<Login onLogin={login} />} />
         </Routes>
       </Router>
 
