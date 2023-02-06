@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // react router
-import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate, useMatch } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate, useMatch, Navigate } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -99,6 +99,7 @@ const CreateNew = (props) => {
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
+  const navigateAfterSumbit = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -108,6 +109,7 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
+    navigateAfterSumbit('/anecdotelist')
   }
 
   return (
