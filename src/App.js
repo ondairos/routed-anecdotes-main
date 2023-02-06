@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // react router
-import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate, useMatch } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -17,17 +17,17 @@ const Menu = () => {
 }
 
 const Anecdote = ({ anecdote }) => {
-  const id = useParams().id
-  const anecdoteDisplay = anecdote.find(element => element.id === Number(id))
+  // const id = useParams().id
+  // const anecdoteDisplay = anecdote.find(element => element.id === Number(id))
 
   return (
     <div>
-      <h2>Content: {anecdoteDisplay.content}</h2>
+      <h2>Content: {anecdote.content}</h2>
       <br></br>
       <div>
-        Author: {anecdoteDisplay.author}
+        Author: {anecdote.author}
         <br></br>
-        Info: {anecdoteDisplay.info}
+        Info: {anecdote.info}
       </div>
     </div>
   )
@@ -158,6 +158,7 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
+  // login set state
   const login = (user) => {
     setUser(user)
   }
@@ -175,6 +176,10 @@ const App = () => {
 
     setAnecdotes(anecdotes.map(anecdote => anecdote.id === id ? voted : anecdote))
   }
+
+  // useMatch for individual anecdote
+  const matchAnecdote = useMatch('/anecdotelist/:id')
+  const anecdote = matchAnecdote ? anecdotes.find(element => element.id === Number(matchAnecdote.params.id)) : null
 
   return (
     <div>
@@ -197,7 +202,7 @@ const App = () => {
 
       {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
       <Routes>
-        <Route path='/anecdotelist/:id' element={<Anecdote anecdotes={anecdotes} />} />
+        <Route path='/anecdotelist/:id' element={<Anecdote anecdote={anecdote} />} />
         <Route path='/menu' element={<Menu />} />
         <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/about' element={<About />} />
