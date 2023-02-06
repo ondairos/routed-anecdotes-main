@@ -9,9 +9,9 @@ const Menu = () => {
   }
   return (
     <div>
-      <a href='#' style={padding}>anecdotes</a>
-      <a href='#' style={padding}>create new</a>
-      <a href='#' style={padding}>about</a>
+      <Link to='/anecdotelist'>Anecdote List </Link>||
+      <Link to='/createnew'>Create New </Link>||
+      <Link to='/about'>About </Link>||
     </div>
   )
 }
@@ -177,7 +177,7 @@ const App = () => {
     setAnecdotes(anecdotes.map(anecdote => anecdote.id === id ? voted : anecdote))
   }
 
-  // useMatch for individual anecdote
+  // useMatch for individual anecdote,Every time the component is rendered, so practically every time the browser's URL changes, the following command is executed
   const matchAnecdote = useMatch('/anecdotelist/:id')
   const anecdote = matchAnecdote ? anecdotes.find(element => element.id === Number(matchAnecdote.params.id)) : null
 
@@ -193,9 +193,6 @@ const App = () => {
 
       <div>
         <Link to='/menu'>Menu </Link>||
-        <Link to='/anecdotelist'>Anecdote List </Link>||
-        <Link to='/about'>About </Link>||
-        <Link to='/createnew'>Create New </Link>||
         <Link to='/users'>Users </Link>||
         {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
       </div>
@@ -203,6 +200,7 @@ const App = () => {
       {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
       <Routes>
         <Route path='/anecdotelist/:id' element={<Anecdote anecdote={anecdote} />} />
+        <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/menu' element={<Menu />} />
         <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/about' element={<About />} />
@@ -211,6 +209,8 @@ const App = () => {
         <Route path="/login" element={<Login onLogin={login} />} />
       </Routes>
 
+      <br></br>
+      <hr></hr>
       <Footer></Footer>
     </div>
   )
