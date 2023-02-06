@@ -16,18 +16,18 @@ const Menu = () => {
   )
 }
 
-const Anecdote = ({ anecdotes }) => {
+const Anecdote = ({ anecdote }) => {
   const id = useParams().id
-  const anecdote = anecdotes.find(element => element.id === Number(id))
+  const anecdoteDisplay = anecdote.find(element => element.id === Number(id))
 
   return (
     <div>
-      <h2>Content: {anecdote.content}</h2>
+      <h2>Content: {anecdoteDisplay.content}</h2>
       <br></br>
       <div>
-        Author: {anecdote.author}
+        Author: {anecdoteDisplay.author}
         <br></br>
-        Info: {anecdote.info}
+        Info: {anecdoteDisplay.info}
       </div>
     </div>
   )
@@ -185,27 +185,26 @@ const App = () => {
       <CreateNew addNew={addNew} />
       <Footer /> */}
 
-      <Router>
-        <div>
-          <Link to='/menu'>Menu </Link>||
-          <Link to='/anecdotelist'>Anecdote List </Link>||
-          <Link to='/about'>About </Link>||
-          <Link to='/createnew'>Create New </Link>||
-          <Link to='/users'>Users </Link>||
-          {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
-        </div>
 
-        {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
-        <Routes>
-          <Route path='/anecdotelist/:id' element={<Anecdote anecdotes={anecdotes} />} />
-          <Route path='/menu' element={<Menu />} />
-          <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/createnew' element={<CreateNew addNew={addNew} />} />
-          {/* <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} /> */}
-          <Route path="/login" element={<Login onLogin={login} />} />
-        </Routes>
-      </Router>
+      <div>
+        <Link to='/menu'>Menu </Link>||
+        <Link to='/anecdotelist'>Anecdote List </Link>||
+        <Link to='/about'>About </Link>||
+        <Link to='/createnew'>Create New </Link>||
+        <Link to='/users'>Users </Link>||
+        {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
+      </div>
+
+      {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
+      <Routes>
+        <Route path='/anecdotelist/:id' element={<Anecdote anecdotes={anecdotes} />} />
+        <Route path='/menu' element={<Menu />} />
+        <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/createnew' element={<CreateNew addNew={addNew} />} />
+        {/* <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} /> */}
+        <Route path="/login" element={<Login onLogin={login} />} />
+      </Routes>
 
       <Footer></Footer>
     </div>
