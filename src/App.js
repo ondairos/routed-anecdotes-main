@@ -94,6 +94,20 @@ const Footer = () => (
   </div>
 )
 
+const Notification = ({message}) => {
+  let notification = ''
+
+  if (message) {
+    notification = (
+      <div>
+        {message}
+      </div>
+    )
+  }
+  return notification
+}
+
+
 const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
@@ -110,6 +124,12 @@ const CreateNew = (props) => {
       votes: 0
     })
     navigateAfterSumbit('/anecdotelist')
+    // Pass the message to App component
+    props.notifyWith(`a new anecdote ${content} created!`)
+
+    // Clear the input
+    setContent('');
+
   }
 
   return (
@@ -165,6 +185,12 @@ const App = () => {
     setUser(user)
   }
 
+  // set notification message
+  const notifyWith = (message) => {
+    setNotification(message)
+    setTimeout(() => setNotification(null), 5000)
+  }
+
   const anecdoteById = (id) =>
     anecdotes.find(a => a.id === id)
 
@@ -198,7 +224,9 @@ const App = () => {
         <Link to='/users'>Users </Link>||
         {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
       </div>
-
+      <div>
+        <Notification message={notification} />
+      </div>
       {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
       <Routes>
         <Route path='/anecdotelist/:id' element={<Anecdote anecdote={anecdote} />} />
@@ -206,7 +234,7 @@ const App = () => {
         <Route path='/menu' element={<Menu />} />
         <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path='/about' element={<About />} />
-        <Route path='/createnew' element={<CreateNew addNew={addNew} />} />
+        <Route path='/createnew' element={<CreateNew addNew={addNew} notifyWith={notifyWith} />} />
         {/* <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} /> */}
         <Route path="/login" element={<Login onLogin={login} />} />
       </Routes>
