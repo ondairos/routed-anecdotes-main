@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // react router
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -42,6 +42,34 @@ const AnecdoteList = ({ anecdotes }) => (
   </div>
 )
 
+const Login = (props) => {
+  const navigate = useNavigate()
+
+  const onSubmitForm = (event) => {
+    event.preventDefault()
+    props.onLogin('JohnK')
+    navigate('/')
+  }
+
+  return (
+    <div>
+      <h2>Login Form</h2>
+      <form onSubmit={onSubmitForm}>
+        <div>
+          username: <input />
+        </div>
+        <div>
+          password: <input type='password' />
+        </div>
+        <div>
+          <button type='submit'>login</button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+// other comps
 const About = () => (
   <div>
     <h2>About anecdote app</h2>
@@ -60,7 +88,7 @@ const Footer = () => (
   <div>
     Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
 
-    See <a href='https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js'>https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js</a> for the source code.
+    Ioannis Kantiloros 2023.
   </div>
 )
 
@@ -120,7 +148,7 @@ const App = () => {
       id: 2
     }
   ])
-
+  const [user, setUser] = useState('')
   const [notification, setNotification] = useState('')
 
   const addNew = (anecdote) => {
@@ -157,7 +185,8 @@ const App = () => {
           <Link to='/anecdotelist'>Anecdote List </Link>||
           <Link to='/about'>About </Link>||
           <Link to='/createnew'>Create New </Link>||
-          <Link to='/footer'>Footer </Link>||
+          <Link to='/users'>Users </Link>||
+          {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
         </div>
 
         {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
@@ -167,10 +196,10 @@ const App = () => {
           <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
           <Route path='/about' element={<About />} />
           <Route path='/createnew' element={<CreateNew addNew={addNew} />} />
-          <Route path='/footer' element={<Footer />} />
         </Routes>
       </Router>
 
+      <Footer></Footer>
     </div>
   )
 }
