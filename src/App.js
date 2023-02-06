@@ -94,7 +94,7 @@ const Footer = () => (
   </div>
 )
 
-const Notification = ({message}) => {
+const Notification = ({ message }) => {
   let notification = ''
 
   if (message) {
@@ -125,7 +125,7 @@ const CreateNew = (props) => {
     })
     navigateAfterSumbit('/anecdotelist')
     // Pass the message to App component
-    props.notifyWith(`a new anecdote ${content} created!`)
+    props.notifyWith(`a new anecdote: ${content} created!`)
 
     // Clear the input
     setContent('');
@@ -188,7 +188,7 @@ const App = () => {
   // set notification message
   const notifyWith = (message) => {
     setNotification(message)
-    setTimeout(() => setNotification(null), 5000)
+    setTimeout(() => setNotification(''), 5000)
   }
 
   const anecdoteById = (id) =>
