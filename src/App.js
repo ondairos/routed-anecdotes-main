@@ -1,12 +1,11 @@
 import { useState } from 'react'
+import { useField } from './hooks'
 
 // react router
-import { BrowserRouter as Router, Routes, Route, Link, useParams, useNavigate, useMatch, Navigate } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
 
 const Menu = () => {
-  const padding = {
-    paddingRight: 5
-  }
+
   return (
     <div>
       <Link to='/anecdotelist'>Anecdote List </Link>||
@@ -109,26 +108,30 @@ const Notification = ({ message }) => {
 
 
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+  // const [content, setContent] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [info, setInfo] = useState('')
+
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
 
   const navigateAfterSumbit = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
     navigateAfterSumbit('/anecdotelist')
     // Pass the message to App component
-    props.notifyWith(`a new anecdote: ${content} created!`)
+    props.notifyWith(`a new anecdote: ${content.value} created!`)
 
-    // Clear the input
-    setContent('');
+    // // Clear the input
+    // setContent('');
 
   }
 
@@ -138,17 +141,17 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input type={content.type} name='content' value={content.value} onChange={content.onChange} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input name='author' type={author.type} value={author.value} onChange={author.onChange} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
+          <input name='info' type={info.type} value={info.value} onChange={info.onChange} />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
       </form>
     </div>
   )
@@ -156,6 +159,7 @@ const CreateNew = (props) => {
 }
 
 const App = () => {
+
   const [anecdotes, setAnecdotes] = useState([
     {
       content: 'If it hurts, do it more often',
@@ -191,23 +195,23 @@ const App = () => {
     setTimeout(() => setNotification(''), 5000)
   }
 
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+  // const anecdoteById = (id) => anecdotes.find(a => a.id === id)
 
-  const vote = (id) => {
-    const anecdote = anecdoteById(id)
+  // const vote = (id) => {
+  //   const anecdote = anecdoteById(id)
 
-    const voted = {
-      ...anecdote,
-      votes: anecdote.votes + 1
-    }
+  //   const voted = {
+  //     ...anecdote,
+  //     votes: anecdote.votes + 1
+  //   }
 
-    setAnecdotes(anecdotes.map(anecdote => anecdote.id === id ? voted : anecdote))
-  }
+  //   setAnecdotes(anecdotes.map(anecdote => anecdote.id === id ? voted : anecdote))
+  // }
 
   // useMatch for individual anecdote,Every time the component is rendered, so practically every time the browser's URL changes, the following command is executed
   const matchAnecdote = useMatch('/anecdotelist/:id')
   const anecdote = matchAnecdote ? anecdotes.find(element => element.id === Number(matchAnecdote.params.id)) : null
+
 
   return (
     <div>
