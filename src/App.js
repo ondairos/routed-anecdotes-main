@@ -118,6 +118,7 @@ const CreateNew = (props) => {
 
   const navigateAfterSumbit = useNavigate()
 
+  // submit form function
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
@@ -134,6 +135,7 @@ const CreateNew = (props) => {
     // setContent('');
 
   }
+
 
   return (
     <div>
@@ -152,6 +154,11 @@ const CreateNew = (props) => {
           <input name='info' type={info.type} value={info.value} onChange={info.onChange} />
         </div>
         <button type='submit'>create</button>
+        <button type='reset' onClick={() => {
+          content.reset();
+          author.reset();
+          info.reset();
+        }}>Clear Fields</button>
       </form>
     </div>
   )
