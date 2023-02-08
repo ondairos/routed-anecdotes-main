@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useField } from './hooks'
-import Table from 'react-bootstrap/Table';
+import { Table, Form, Button } from 'react-bootstrap'
 
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
@@ -33,14 +33,6 @@ const Anecdote = ({ anecdote }) => {
   )
 }
 
-// const AnecdoteList = ({ anecdotes }) => (
-//   <div>
-//     <h2>Anecdotes</h2>
-//     <ul>
-//       {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`/anecdotelist/${anecdote.id}`}>{anecdote.content}</Link></li>)}
-//     </ul>
-//   </div>
-// )
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
@@ -154,27 +146,43 @@ const CreateNew = (props) => {
 
   return (
     <div>
-      <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          content
-          <input type={content.type} name='content' value={content.value} onChange={content.onChange} />
-        </div>
-        <div>
-          author
-          <input name='author' type={author.type} value={author.value} onChange={author.onChange} />
-        </div>
-        <div>
-          url for more info
-          <input name='info' type={info.type} value={info.value} onChange={info.onChange} />
-        </div>
-        <button type='submit'>create</button>
-        <button type='reset' onClick={() => {
-          content.reset();
-          author.reset();
-          info.reset();
-        }}>Clear Fields</button>
-      </form>
+      <h2>Create a new anecdote:</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label>content:</Form.Label>
+          <Form.Control type={content.type}
+            name='content'
+            value={content.value}
+            onChange={content.onChange}>
+          </Form.Control>
+
+          <Form.Label>author:</Form.Label>
+          <Form.Control name='author'
+            type={author.type}
+            value={author.value}
+            onChange={author.onChange}>
+          </Form.Control>
+
+          <Form.Label>url for more info: </Form.Label>
+          <Form.Control name='info'
+            type={info.type}
+            value={info.value}
+            onChange={info.onChange}>
+          </Form.Control>
+          <br></br>
+          <Button variant='primary' type='submit'>
+            create
+          </Button>
+          <span> </span>
+          <Button variant='secondary' type='reset' onClick={() => {
+            content.reset();
+            author.reset();
+            info.reset();
+          }}>
+            Clear Fields
+          </Button>
+        </Form.Group>
+      </Form>
     </div>
   )
 
