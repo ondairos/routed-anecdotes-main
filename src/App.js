@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useField } from './hooks'
-import { Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
+import { Form, Navbar, Nav } from 'react-bootstrap'
 import {
-  Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper,
+  Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, TextField, Button, AppBar, Toolbar, Alert
 } from '@mui/material'
 
 // react router
@@ -39,14 +39,16 @@ const Anecdote = ({ anecdote }) => {
   // const anecdoteDisplay = anecdote.find(element => element.id === Number(id))
 
   return (
-    <div className='container'>
-      <h2>Content: {anecdote.content}</h2>
-      <br></br>
-      <div>
-        Author: {anecdote.author}
+    <div>
+      <Container>
+        <h2>Content: {anecdote.content}</h2>
         <br></br>
-        Info: {anecdote.info}
-      </div>
+        <div>
+          Author: {anecdote.author}
+          <br></br>
+          Info: {anecdote.info}
+        </div>
+      </Container>
     </div>
   )
 }
@@ -168,42 +170,37 @@ const CreateNew = (props) => {
   return (
     <div>
       <h2>Create a new anecdote:</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label>content:</Form.Label>
-          <Form.Control type={content.type}
-            name='content'
-            value={content.value}
-            onChange={content.onChange}>
-          </Form.Control>
-
-          <Form.Label>author:</Form.Label>
-          <Form.Control name='author'
-            type={author.type}
-            value={author.value}
-            onChange={author.onChange}>
-          </Form.Control>
-
-          <Form.Label>url for more info: </Form.Label>
-          <Form.Control name='info'
-            type={info.type}
-            value={info.value}
-            onChange={info.onChange}>
-          </Form.Control>
-          <br></br>
-          <Button variant='primary' type='submit'>
-            create
-          </Button>
-          <span> </span>
-          <Button variant='secondary' type='reset' onClick={() => {
-            content.reset();
-            author.reset();
-            info.reset();
-          }}>
-            Clear Fields
-          </Button>
-        </Form.Group>
-      </Form>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <TextField label='content' name='content'
+            value={content.value} type={content.type}
+            onChange={content.onChange} />
+        </div>
+        <br></br>
+        <div>
+          <TextField label='author' name='author'
+            value={author.value} type={author.type}
+            onChange={author.onChange} />
+        </div>
+        <br></br>
+        <div>
+          <TextField label='info' name='info'
+            value={info.value} type={info.type}
+            onChange={info.onChange} />
+        </div>
+        <br></br>
+        <Button variant='contained' color='primary' type='submit'>
+          create
+        </Button>
+        <span> </span>
+        <Button variant='contained' color='secondary' type='reset' onClick={() => {
+          content.reset();
+          author.reset();
+          info.reset();
+        }}>
+          Clear Fields
+        </Button>
+      </form>
     </div>
   )
 
