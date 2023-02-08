@@ -9,18 +9,18 @@ import styled from 'styled-components'
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
 
-const Menu = () => {
-  
-  //styled component
-  const MyTextStyle  = styled.button`
+//styled component
+const MyTextStyle = styled.button`
   background: light-blue;
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid Blue;
   border-radius: 3px;
-`
+  `
 
+//Menu dropdown
+const Menu = () => {
 
   return (
     <div>
@@ -32,11 +32,11 @@ const Menu = () => {
           </Button>
 
           <Button color='inherit' component={Link} to='/createnew'>
-          <MyTextStyle>Create New</MyTextStyle>
+            <MyTextStyle>Create New</MyTextStyle>
           </Button>
 
           <Button color='inherit' component={Link} to='/about'>
-          <MyTextStyle>About</MyTextStyle>
+            <MyTextStyle>About</MyTextStyle>
           </Button>
         </Toolbar>
       </AppBar>
