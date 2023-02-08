@@ -108,9 +108,6 @@ const Notification = ({ message }) => {
 
 
 const CreateNew = (props) => {
-  // const [content, setContent] = useState('')
-  // const [author, setAuthor] = useState('')
-  // const [info, setInfo] = useState('')
 
   const content = useField('text')
   const author = useField('text')
