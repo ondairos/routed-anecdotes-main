@@ -19,6 +19,13 @@ const MyTextStyle = styled.button`
   border-radius: 3px;
   `
 
+const FooterStyle = styled.div`
+  background: whitesmoke;
+  padding: 1em;
+  border:1px solid Black;
+  margin-top: 1em;
+`
+
 //Menu dropdown
 const Menu = () => {
 
@@ -130,11 +137,13 @@ const About = () => (
 )
 
 const Footer = () => (
-  <div>
-    Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
+  <FooterStyle>
+    <div>
+      Anecdote app for <a href='https://fullstackopen.com/'>Full Stack Open</a>.
 
-    Ioannis Kantiloros 2023.
-  </div>
+      Ioannis Kantiloros 2023.
+    </div>
+  </FooterStyle>
 )
 
 const Notification = ({ message }) => {
