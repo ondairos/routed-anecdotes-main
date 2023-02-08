@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useField } from './hooks'
-import { Table, Form, Button } from 'react-bootstrap'
+import { Table, Form, Button, Alert } from 'react-bootstrap'
 
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
@@ -21,7 +21,7 @@ const Anecdote = ({ anecdote }) => {
   // const anecdoteDisplay = anecdote.find(element => element.id === Number(id))
 
   return (
-    <div>
+    <div className='container'>
       <h2>Content: {anecdote.content}</h2>
       <br></br>
       <div>
@@ -33,7 +33,7 @@ const Anecdote = ({ anecdote }) => {
   )
 }
 
-
+//display list of anecdotes
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
@@ -108,15 +108,16 @@ const Notification = ({ message }) => {
 
   if (message) {
     notification = (
-      <div>
+      <Alert variant='success'>
         {message}
-      </div>
+      </Alert >
     )
   }
   return notification
 }
 
 
+//form create new anecdote
 const CreateNew = (props) => {
 
   const content = useField('text')
