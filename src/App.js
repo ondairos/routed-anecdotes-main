@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useField } from './hooks'
-import { Table, Form, Button, Alert } from 'react-bootstrap'
+import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
 
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
@@ -9,9 +9,24 @@ const Menu = () => {
 
   return (
     <div>
-      <Link to='/anecdotelist'>Anecdote List </Link>||
-      <Link to='/createnew'>Create New </Link>||
-      <Link to='/about'>About </Link>||
+      <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav'></Navbar.Toggle>
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='me-auto'>
+            <Nav.Link href='#' as='span'>
+              <Link to='/anecdotelist'>Anecdote List </Link>
+            </Nav.Link>
+
+            <Nav.Link href='#' as='span'>
+              <Link to='/createnew'>Create New </Link>
+            </Nav.Link>
+
+            <Nav.Link href='#' as='span'>
+              <Link to='/about'>About </Link>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </div>
   )
 }
@@ -247,21 +262,30 @@ const App = () => {
   return (
     <div className='container'>
       <h1>Software anecdotes</h1>
-      {/* <Menu />
-      <AnecdoteList anecdotes={anecdotes} />
-      <About />
-      <CreateNew addNew={addNew} />
-      <Footer /> */}
 
+      <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav'></Navbar.Toggle>
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='me-auto'>
+            <Nav.Link href='#' as='span'>
+              <Link to='/menu'>Menu </Link>
+            </Nav.Link>
 
-      <div>
-        <Link to='/menu'>Menu </Link>||
-        <Link to='/users'>Users </Link>||
-        {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
-      </div>
+            <Nav.Link href='#' as='span'>
+              <Link to='/users'>Users </Link>
+            </Nav.Link>
+
+            <Nav.Link href='#' as='span'>
+              {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+
       <div>
         <Notification message={notification} />
       </div>
+
       {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
       <Routes>
         <Route path='/anecdotelist/:id' element={<Anecdote anecdote={anecdote} />} />
