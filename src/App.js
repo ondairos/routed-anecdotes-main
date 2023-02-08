@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { useField } from './hooks'
-import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
+import { Form, Button, Alert, Navbar, Nav } from 'react-bootstrap'
+import {
+  Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper,
+} from '@mui/material'
 
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
@@ -52,17 +55,19 @@ const Anecdote = ({ anecdote }) => {
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
-    <Table striped>
-      <tbody>
-        {anecdotes.map(anecdote =>
-          <tr key={anecdote.id} >
-            <td>
-              <Link to={`/anecdotelist/${anecdote.id}`}>{anecdote.content}
-              </Link>
-            </td>
-          </tr>)}
-      </tbody>
-    </Table>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableBody>
+          {anecdotes.map(anecdote =>
+            <TableRow key={anecdote.id} >
+              <TableCell>
+                <Link to={`/anecdotelist/${anecdote.id}`}>{anecdote.content}
+                </Link>
+              </TableCell>
+            </TableRow>)}
+        </TableBody>
+      </Table>
+    </TableContainer>
   </div >
 )
 
@@ -260,47 +265,49 @@ const App = () => {
 
 
   return (
-    <div className='container'>
-      <h1>Software anecdotes</h1>
+    <div>
+      <Container>
+        <h1>Software anecdotes</h1>
 
-      <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav'></Navbar.Toggle>
-        <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='me-auto'>
-            <Nav.Link href='#' as='span'>
-              <Link to='/menu'>Menu </Link>
-            </Nav.Link>
+        <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
+          <Navbar.Toggle aria-controls='responsive-navbar-nav'></Navbar.Toggle>
+          <Navbar.Collapse id='responsive-navbar-nav'>
+            <Nav className='me-auto'>
+              <Nav.Link href='#' as='span'>
+                <Link to='/menu'>Menu </Link>
+              </Nav.Link>
 
-            <Nav.Link href='#' as='span'>
-              <Link to='/users'>Users </Link>
-            </Nav.Link>
+              <Nav.Link href='#' as='span'>
+                <Link to='/users'>Users </Link>
+              </Nav.Link>
 
-            <Nav.Link href='#' as='span'>
-              {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+              <Nav.Link href='#' as='span'>
+                {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
 
-      <div>
-        <Notification message={notification} />
-      </div>
+        <div>
+          <Notification message={notification} />
+        </div>
 
-      {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
-      <Routes>
-        <Route path='/anecdotelist/:id' element={<Anecdote anecdote={anecdote} />} />
-        <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path='/menu' element={<Menu />} />
-        <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/createnew' element={<CreateNew addNew={addNew} notifyWith={notifyWith} />} />
-        {/* <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} /> */}
-        <Route path="/login" element={<Login onLogin={login} />} />
-      </Routes>
+        {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
+        <Routes>
+          <Route path='/anecdotelist/:id' element={<Anecdote anecdote={anecdote} />} />
+          <Route path='/' element={<AnecdoteList anecdotes={anecdotes} />} />
+          <Route path='/menu' element={<Menu />} />
+          <Route path='/anecdotelist' element={<AnecdoteList anecdotes={anecdotes} />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/createnew' element={<CreateNew addNew={addNew} notifyWith={notifyWith} />} />
+          {/* <Route path="/users" element={user ? <Users /> : <Navigate replace to="/login" />} /> */}
+          <Route path="/login" element={<Login onLogin={login} />} />
+        </Routes>
 
-      <br></br>
-      <hr></hr>
-      <Footer></Footer>
+        <br></br>
+        <hr></hr>
+        <Footer></Footer>
+      </Container>
     </div>
   )
 }
