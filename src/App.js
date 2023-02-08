@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useField } from './hooks'
+import Table from 'react-bootstrap/Table';
 
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
@@ -32,13 +33,30 @@ const Anecdote = ({ anecdote }) => {
   )
 }
 
+// const AnecdoteList = ({ anecdotes }) => (
+//   <div>
+//     <h2>Anecdotes</h2>
+//     <ul>
+//       {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`/anecdotelist/${anecdote.id}`}>{anecdote.content}</Link></li>)}
+//     </ul>
+//   </div>
+// )
+
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
-    <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} ><Link to={`/anecdotelist/${anecdote.id}`}>{anecdote.content}</Link></li>)}
-    </ul>
-  </div>
+    <Table striped>
+      <tbody>
+        {anecdotes.map(anecdote =>
+          <tr key={anecdote.id} >
+            <td>
+              <Link to={`/anecdotelist/${anecdote.id}`}>{anecdote.content}
+              </Link>
+            </td>
+          </tr>)}
+      </tbody>
+    </Table>
+  </div >
 )
 
 const Login = (props) => {
@@ -218,7 +236,7 @@ const App = () => {
 
 
   return (
-    <div>
+    <div className='container'>
       <h1>Software anecdotes</h1>
       {/* <Menu />
       <AnecdoteList anecdotes={anecdotes} />
