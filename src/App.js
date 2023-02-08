@@ -12,24 +12,22 @@ const Menu = () => {
 
   return (
     <div>
-      <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav'></Navbar.Toggle>
-        <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='me-auto'>
-            <Nav.Link href='#' as='span'>
-              <Link to='/anecdotelist'>Anecdote List </Link>
-            </Nav.Link>
+      <AppBar position='static'>
+        <Toolbar>
+          <IconButton edge='start' color='inherit' aria-label='menu'></IconButton>
+          <Button color='inherit' component={Link} to='/anecdotelist'>
+            Anecdote List
+          </Button>
 
-            <Nav.Link href='#' as='span'>
-              <Link to='/createnew'>Create New </Link>
-            </Nav.Link>
+          <Button color='inherit' component={Link} to='/createnew'>
+            Create New
+          </Button>
 
-            <Nav.Link href='#' as='span'>
-              <Link to='/about'>About </Link>
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+          <Button color='inherit' component={Link} to='/about'>
+            About
+          </Button>
+        </Toolbar>
+      </AppBar>
     </div>
   )
 }
