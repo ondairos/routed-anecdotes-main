@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useField } from './hooks'
 import { Form, Navbar, Nav } from 'react-bootstrap'
 import {
-  Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, TextField, Button, AppBar, Toolbar, Alert
+  Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, TextField, Button, AppBar, Toolbar, Alert, IconButton
 } from '@mui/material'
 
 // react router
@@ -268,28 +268,29 @@ const App = () => {
       <Container>
         <h1>Software anecdotes</h1>
 
-        <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
-          <Navbar.Toggle aria-controls='responsive-navbar-nav'></Navbar.Toggle>
-          <Navbar.Collapse id='responsive-navbar-nav'>
-            <Nav className='me-auto'>
-              <Nav.Link href='#' as='span'>
-                <Link to='/menu'>Menu </Link>
-              </Nav.Link>
+        <AppBar position='static'>
+          <Toolbar>
+            <IconButton edge='start' color='inherit' aria-label='menu'></IconButton>
+            <Button color='inherit' component={Link} to='/menu'>
+              Menu
+            </Button>
 
-              <Nav.Link href='#' as='span'>
-                <Link to='/users'>Users </Link>
-              </Nav.Link>
+            <Button color='inherit' component={Link} to='/users'>
+              Users
+            </Button>
 
-              <Nav.Link href='#' as='span'>
-                {user ? <em>{user} logged in</em> : <Link to="/login">login</Link>}
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+            {user
+              ? <em>{user} logged in</em>
+              : <Button color='inherit' component={Link} to='/login'>
+                Login
+              </Button>
+            }
+          </Toolbar>
+        </AppBar>
 
-        <div>
+        <Container>
           <Notification message={notification} />
-        </div>
+        </Container>
 
         {/* The Routes works by rendering the first component whose path matches the URL in the browser's address bar. */}
         <Routes>
