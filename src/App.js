@@ -1,14 +1,26 @@
 import { useState } from 'react'
 import { useField } from './hooks'
-import { Form, Navbar, Nav } from 'react-bootstrap'
 import {
   Container, Table, TableBody, TableCell, TableContainer, TableRow, Paper, TextField, Button, AppBar, Toolbar, Alert, IconButton
 } from '@mui/material'
+import styled from 'styled-components'
+
 
 // react router
 import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom'
 
 const Menu = () => {
+  
+  //styled component
+  const MyTextStyle  = styled.button`
+  background: light-blue;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid Blue;
+  border-radius: 3px;
+`
+
 
   return (
     <div>
@@ -16,15 +28,15 @@ const Menu = () => {
         <Toolbar>
           <IconButton edge='start' color='inherit' aria-label='menu'></IconButton>
           <Button color='inherit' component={Link} to='/anecdotelist'>
-            Anecdote List
+            <MyTextStyle>Anecdote List</MyTextStyle>
           </Button>
 
           <Button color='inherit' component={Link} to='/createnew'>
-            Create New
+          <MyTextStyle>Create New</MyTextStyle>
           </Button>
 
           <Button color='inherit' component={Link} to='/about'>
-            About
+          <MyTextStyle>About</MyTextStyle>
           </Button>
         </Toolbar>
       </AppBar>
